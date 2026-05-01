@@ -18,10 +18,13 @@ app.get("/", (req, res) => {
   res.json({ message: "ShoppyGlobe API is running" });
 });
 
-// Routes will be added here in later phases
-// app.use("/api/products", productRoutes);
-// app.use("/api/auth", authRoutes);
-// app.use("/api/cart", cartRoutes);
+// Import routes
+const productRoutes = require("./routes/productRoutes");
+
+// Register routes
+app.use("/api/products", productRoutes);
+// app.use("/api/auth", authRoutes);       // Phase 3
+// app.use("/api/cart", cartRoutes);        // Phase 4
 
 const PORT = process.env.PORT || 5000;
 
