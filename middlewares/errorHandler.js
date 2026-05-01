@@ -1,0 +1,39 @@
+// Centralized error handling middleware
+// This catches any errors that are not handled in individual routes
+// Must be placed AFTER all routes in server.js
+
+const errorHandler = (err, req, res, next) => {
+  console.error("Error:", err.message);
+
+  // Mongoose validation error (e.g., missing required fields)
+  if (err.name === "ValidationError") {
+    const messages = Object.values(err.errors).map((val) => val.message);
+    return res.status(400).json({ message: messages.join(", ") });
+  }
+
+  // Mongoose duplicate key error (e.g., duplicate email)
+  if (err.code === 11000) {
+    return res.status(400).json({ message: "Duplicate field value entered" });
+  }
+
+  // Mongoose bad ObjectId error
+  if (err.name === "CastError") {
+    return res.status(400).json({ message: "Invalid ID format" });
+  }
+
+  // JWT errors
+  if (err.name === "JsonWebTokenError") {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+
+  if (err.name === "TokenExpiredError") {
+    return res.status(401).json({ message: "Token has expired, please login again" });
+  }
+
+  // Default server error
+  res.status(err.status || 500).json({
+    message: err.message || "Internal Server Error",
+  });
+};
+
+module.exports = errorHandler;
