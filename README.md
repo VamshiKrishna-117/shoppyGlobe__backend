@@ -29,7 +29,7 @@ npm install
 ```
 MONGO_URI=mongodb://localhost:27017/shoppyglobe
 PORT=5000
-JWT_SECRET=shoppyglobe_secret_key_2024
+JWT_SECRET="use your own secret key"
 ```
 
 4. Seed the database with sample products
