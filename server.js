@@ -20,10 +20,11 @@ app.get("/", (req, res) => {
 
 // Import routes
 const productRoutes = require("./routes/productRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 // Register routes
 app.use("/api/products", productRoutes);
-// app.use("/api/auth", authRoutes);       // Phase 3
+app.use("/api/auth", authRoutes);
 // app.use("/api/cart", cartRoutes);        // Phase 4
 
 const PORT = process.env.PORT || 5000;
