@@ -28,6 +28,10 @@ app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 
+// Centralized error handler (must be after all routes)
+const errorHandler = require("./middlewares/errorHandler");
+app.use(errorHandler);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
