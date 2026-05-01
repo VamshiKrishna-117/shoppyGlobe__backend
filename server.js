@@ -21,11 +21,12 @@ app.get("/", (req, res) => {
 // Import routes
 const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 
 // Register routes
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
-// app.use("/api/cart", cartRoutes);        // Phase 4
+app.use("/api/cart", cartRoutes);
 
 const PORT = process.env.PORT || 5000;
 
